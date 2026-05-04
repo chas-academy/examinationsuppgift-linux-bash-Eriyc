@@ -10,10 +10,12 @@ fi
 for username in "$@"; do
   if id "$username" &>/dev/null; then
     echo "User $username already exists."
+    exit 1
   else
     # visa felmeddelandet om användaren inte kan skapas
     if ! error=$(useradd -m "$username" 2>&1); then
       echo "Failed to create user $username: $error"
+      exit 1
     fi
   fi
 done
